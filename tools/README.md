@@ -30,22 +30,17 @@
 
 ## MCP
 
-| 名称 | 来源 | 功能 | 状态 |
-| --- | --- | --- | --- |
-| node_repl | 系统自带（Codex 客户端） | Node.js REPL 执行能力，配合浏览器/桌面控制 | 启用 |
-| computer-use | 系统自带（Codex 客户端） | 通过 Computer Use 控制 macOS 桌面应用 | 未启用（enabled=false） |
-| drawio（Next AI Draw.io） | GitHub / npm（[DayuanJiang/next-ai-draw-io](https://github.com/DayuanJiang/next-ai-draw-io)） | AI 生成/编辑 draw.io 图表，实时浏览器预览 | 已启用 |
+| 名称 | 来源 | 功能 | 状态 | 原理 |
+| --- | --- | --- | --- | --- |
+| node_repl | 系统自带（Codex 客户端） | Node.js REPL 执行能力，配合浏览器/桌面控制 | 启用 |  |
+| computer-use | 系统自带（Codex 客户端） | 通过 Computer Use 控制 macOS 桌面应用 | 未启用（enabled=false） |  |
+| drawio（Next AI Draw.io） | GitHub / npm（[DayuanJiang/next-ai-draw-io](https://github.com/DayuanJiang/next-ai-draw-io)） | AI 生成/编辑 draw.io 图表，实时浏览器预览 | 已启用 | MCP server：`npx` 按需拉起 stdio 进程，模型调用 create/get/edit 工具改 `.drawio` 源文件，内置 HTTP 实时预览；进程结束后可能残留，需手动清理 |
 
 ## Installers
 
 | 名称 | 版本 | 来源 | 用途 |
 | --- | --- | --- | --- |
 | Next AI Draw.io | 0.4.16 | GitHub（[DayuanJiang/next-ai-draw-io](https://github.com/DayuanJiang/next-ai-draw-io/releases)） | AI 增强的 draw.io 桌面绘图（macOS + Windows） |
-
-## 工具原理简说
-
-- **diagram-design（插件/skill）**：本质是"说明书 + 模板库"。模型按 SKILL.md 规则选型（27 种类型），手写生成自包含 HTML/SVG；导入 draw.io/Mermaid 时用脚本纯文本解析源文件，再按品牌风格重绘。无后台服务。
-- **drawio MCP（Next AI Draw.io）**：运行中的 MCP server。客户端通过 `npx @next-ai-drawio/mcp-server@latest` 按需拉起 stdio 进程，模型调用 create/get/edit 工具修改 `.drawio` 源文件，内置 HTTP 实时预览。进程随会话按需启动，结束后可能残留，需手动清理。
 
 ## 维护约定
 
