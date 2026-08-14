@@ -8,8 +8,9 @@
 
 | 分类 | 目录 | 状态 |
 | --- | --- | --- |
-| Skills | `tools/skills/` | 已收录 4 个 + 插件 1 个 |
+| Skills | `tools/skills/` | 已收录 4 个 |
 | Agents | `tools/agents/` | 空（预留） |
+| Plugins | `tools/plugins/` | 已收录 1 个 |
 | MCP | `tools/mcp/` | 已收录 2 个（脱敏配置） |
 | Prompts | `tools/prompts/` | 空（待维护） |
 | Scripts | `tools/scripts/` | 空（待维护） |
@@ -24,7 +25,8 @@
 | StockWin | 自己创建 | A 股专业分析：智能选股、持仓深度分析、卖出/止盈止损策略（资金面优先） |  |
 | offer | 自己创建 | 求职助手：岗位搜索与评估、投递追踪、简历与岗位分析 |  |
 | grill-me / grilling | GitHub（[mattpocock/skills](https://github.com/mattpocock/skills)） | 追问式访谈打磨方案：grill-me 是入口，grilling 是具体会话流程（按设计树分轮拷问） |  |
-| diagram-design | GitHub 插件（[cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design)） | 编辑级图表：27 种类型，HTML/SVG 输出，支持 draw.io/Mermaid 导入重绘、品牌化配色 | 以插件形式安装，插件内打包的是 Agent Skill；Codex 与 Claude Code 均已装；不在 `tools/skills/` 快照内 |
+
+> 插件类（如 diagram-design）单独登记在 [plugins/README.md](plugins/README.md)，不归入 Skills。
 
 ## MCP
 

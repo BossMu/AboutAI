@@ -145,6 +145,7 @@ def build_index():
     sections = [
         ("skills", "Skills"),
         ("agents", "Agents"),
+        ("plugins", "插件"),
         ("mcp", "MCP 服务器"),
         ("prompts", "提示词"),
         ("scripts", "脚本 / 工作流"),

@@ -7,6 +7,7 @@
   - `INDEX.md` — 索引表（`sync.py` 自动生成，覆盖 skills/agents/mcp/prompts/scripts/configs）
   - `skills/` — skills 快照（`sync.py` 从 `~/.agents/skills` 导出，勿手改）
   - `agents/` — agents 快照（`sync.py` 从 `~/.agents/agents` 导出，暂为空，预留）
+  - `plugins/` — 插件登记（`README.md`，手工维护）
   - `mcp/` — MCP 脱敏配置（`sync.py` 自动生成）
   - `prompts/` — 提示词模板（手工维护）
   - `scripts/` — 工作流/脚本（手工维护）
