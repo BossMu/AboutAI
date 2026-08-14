@@ -42,6 +42,11 @@
 | --- | --- | --- | --- |
 | Next AI Draw.io | 0.4.16 | GitHub（[DayuanJiang/next-ai-draw-io](https://github.com/DayuanJiang/next-ai-draw-io/releases)） | AI 增强的 draw.io 桌面绘图（macOS + Windows） |
 
+## 工具原理简说
+
+- **diagram-design（插件/skill）**：本质是"说明书 + 模板库"。模型按 SKILL.md 规则选型（27 种类型），手写生成自包含 HTML/SVG；导入 draw.io/Mermaid 时用脚本纯文本解析源文件，再按品牌风格重绘。无后台服务。
+- **drawio MCP（Next AI Draw.io）**：运行中的 MCP server。客户端通过 `npx @next-ai-drawio/mcp-server@latest` 按需拉起 stdio 进程，模型调用 create/get/edit 工具修改 `.drawio` 源文件，内置 HTTP 实时预览。进程随会话按需启动，结束后可能残留，需手动清理。
+
 ## 维护约定
 
 - 本文件人工维护：新增/删除工具后，同步更新对应分类表格。
