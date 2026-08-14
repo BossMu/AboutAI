@@ -19,14 +19,12 @@
 
 ## Skills
 
-| 名称 | 来源 | 简要功能 |
-| --- | --- | --- |
-| StockWin | 自己创建 | A 股专业分析：智能选股、持仓深度分析、卖出/止盈止损策略（资金面优先） |
-| offer | 自己创建 | 求职助手：岗位搜索与评估、投递追踪、简历与岗位分析 |
-| grill-me / grilling | GitHub（[mattpocock/skills](https://github.com/mattpocock/skills)） | 追问式访谈打磨方案：grill-me 是入口，grilling 是具体会话流程（按设计树分轮拷问） |
-| diagram-design | GitHub 插件（[cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design)） | 编辑级图表：27 种类型，HTML/SVG 输出，支持 draw.io/Mermaid 导入重绘、品牌化配色 |
-
-> diagram-design 本质是 Agent Skill（`skills/diagram-design/SKILL.md`），以插件形式分发安装，Codex 与 Claude Code 均已装（不在 `tools/skills/` 快照内），来源见上表。
+| 名称 | 来源 | 简要功能 | 备注 |
+| --- | --- | --- | --- |
+| StockWin | 自己创建 | A 股专业分析：智能选股、持仓深度分析、卖出/止盈止损策略（资金面优先） |  |
+| offer | 自己创建 | 求职助手：岗位搜索与评估、投递追踪、简历与岗位分析 |  |
+| grill-me / grilling | GitHub（[mattpocock/skills](https://github.com/mattpocock/skills)） | 追问式访谈打磨方案：grill-me 是入口，grilling 是具体会话流程（按设计树分轮拷问） |  |
+| diagram-design | GitHub 插件（[cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design)） | 编辑级图表：27 种类型，HTML/SVG 输出，支持 draw.io/Mermaid 导入重绘、品牌化配色 | 本质是 Agent Skill；以插件形式分发，Codex 与 Claude Code 均已装；不在 `tools/skills/` 快照内 |
 
 ## MCP
 
