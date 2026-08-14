@@ -1,6 +1,6 @@
 # AboutAI 工具包索引
 
-> 由 scripts/sync.py 自动生成（2026-08-14 22:57），请勿手改。手写内容请放 tools/docs/ 等目录。
+> 由 scripts/sync.py 自动生成（2026-08-14 22:58），请勿手改。手写内容请放 tools/docs/ 等目录。
 
 ## Skills
 
@@ -16,6 +16,7 @@
 ## 插件
 
 - README.md — [tools/plugins/README.md](tools/plugins/README.md)
+- diagram-design/ — [tools/plugins/diagram-design/](tools/plugins/diagram-design/)
 
 ## MCP 服务器
 
