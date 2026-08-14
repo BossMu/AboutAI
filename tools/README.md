@@ -26,7 +26,7 @@
 | grill-me / grilling | GitHub（[mattpocock/skills](https://github.com/mattpocock/skills)） | 追问式访谈打磨方案：grill-me 是入口，grilling 是具体会话流程（按设计树分轮拷问） |
 | diagram-design | GitHub 插件（[cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design)） | 编辑级图表：27 种类型，HTML/SVG 输出，支持 draw.io/Mermaid 导入重绘、品牌化配色 |
 
-> diagram-design 以 Codex 插件形式安装（不在 `tools/skills/` 快照内），来源见上表。
+> diagram-design 本质是 Agent Skill（`skills/diagram-design/SKILL.md`），以 Codex 插件形式分发安装（不在 `tools/skills/` 快照内），来源见上表。
 
 ## MCP
 
