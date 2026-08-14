@@ -31,6 +31,7 @@
 | --- | --- | --- | --- |
 | node_repl | 系统自带（Codex 客户端） | Node.js REPL 执行能力，配合浏览器/桌面控制 | 启用 |
 | computer-use | 系统自带（Codex 客户端） | 通过 Computer Use 控制 macOS 桌面应用 | 未启用（enabled=false） |
+| drawio（Next AI Draw.io） | GitHub / npm（[DayuanJiang/next-ai-draw-io](https://github.com/DayuanJiang/next-ai-draw-io)） | AI 生成/编辑 draw.io 图表，实时浏览器预览 | 未配置（可加） |
 
 ## Installers
 
