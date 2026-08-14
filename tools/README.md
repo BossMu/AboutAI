@@ -23,8 +23,7 @@
 | --- | --- | --- |
 | StockWin | 自己创建 | A 股专业分析：智能选股、持仓深度分析、卖出/止盈止损策略（资金面优先） |
 | offer | 自己创建 | 求职助手：岗位搜索与评估、投递追踪、简历与岗位分析 |
-| grill-me | GitHub（[mattpocock/skills](https://github.com/mattpocock/skills)） | 追问式访谈入口，用于打磨方案或设计 |
-| grilling | GitHub（[mattpocock/skills](https://github.com/mattpocock/skills)） | 按设计树分轮拷问，直到达成共识（grill-me 指向的会话流程） |
+| grill-me / grilling | GitHub（[mattpocock/skills](https://github.com/mattpocock/skills)） | 追问式访谈打磨方案：grill-me 是入口，grilling 是具体会话流程（按设计树分轮拷问） |
 
 ## MCP
 
