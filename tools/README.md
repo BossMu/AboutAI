@@ -26,7 +26,11 @@
 | offer | — | 自己创建 | 求职助手：岗位搜索与评估、投递追踪、简历与岗位分析 | 已装 |  |
 | grill-me / grilling | — | GitHub（[mattpocock/skills](https://github.com/mattpocock/skills)） | 追问式访谈打磨方案：grill-me 是入口，grilling 是具体会话流程（按设计树分轮拷问） | 已装；同源同流程 |  |
 
-> 插件类（如 diagram-design）单独登记在 [plugins/README.md](plugins/README.md)，不归入 Skills。
+## Plugins
+
+| 名称 | 版本 | 来源 | 功能 | 备注 | 原理 |
+| --- | --- | --- | --- | --- | --- |
+| diagram-design | 2.3.5 | GitHub（[cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design)） | 打包 Agent Skill（27 种编辑级图表） | 双端已装；支持 draw.io/Mermaid 导入重绘、品牌化配色；内容包快照 `tools/plugins/diagram-design/` | 说明书+模板库：模型按 SKILL.md 规则选型并手写自包含 HTML/SVG；导入 draw.io/Mermaid 时脚本纯文本解析源文件再按品牌风格重绘；无后台服务 |
 
 ## MCP
 
