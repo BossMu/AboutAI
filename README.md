@@ -23,11 +23,10 @@ python3 scripts/install.py
 
 ## 维护约定
 
+- 发现/下载或检测到使用了新的 skill、MCP、plugin 等工具时，先询问用户是否需要备份/登记到 AboutAI，得到确认后再维护。
 - `tools/skills/`、`tools/agents/` 由 `sync.py` 整目录生成，**不要手改**，会被覆盖。
 - `tools/mcp/` 由 `sync.py` 从 `~/.codex/config.toml` 提取并脱敏生成，同样不要手改。
 - 手写内容放 `tools/docs/`（工具心得）、`tools/prompts/`、`tools/scripts/`、`tools/configs/`。
 - `tools/installers/` 放安装包（dmg/pkg/exe），二进制不入 git，登记见 `tools/installers/README.md`。
 - 隐私与排除：`sync.py` 会跳过 `.syncignore` 中列出的路径；MCP 配置中的 key/token/secret 一律替换为 `<redacted>`。公开分享前请自行检查一遍。
 - 学习区 `learning/` 是个人笔记区，可自由增删；笔记可用链接指向 `tools/docs/` 中的条目。
-
-- `learning/` 是个人学习区，记录笔记与实验，可自由增删。
