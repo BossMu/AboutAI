@@ -1,0 +1,9 @@
+# 同步排除清单
+# 被列出的路径在导出到 tools/skills、tools/agents 时会被跳过。
+# 语法：相对 ~/.agents 的路径，支持 fnmatch 通配符（如 *、**）。
+#
+# 示例（按需取消注释并修改）：
+# skills/offer/references/*-tracking.md
+# skills/StockWin/data/*.csv
+# **/*.sqlite
+# **/private/

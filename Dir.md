@@ -1,0 +1,20 @@
+# AboutAI 目录结构
+
+- `README.md` — 项目总览与快速开始
+- `Dir.md` — 本文件，目录结构说明
+- `tools/` — 工具包本体
+  - `README.md` — 工具包总览：分类、来源、功能（人工维护）
+  - `INDEX.md` — 索引表（`sync.py` 自动生成，覆盖 skills/agents/mcp/prompts/scripts/configs）
+  - `skills/` — skills 快照（`sync.py` 从 `~/.agents/skills` 导出，勿手改）
+  - `agents/` — agents 快照（`sync.py` 从 `~/.agents/agents` 导出，暂为空，预留）
+  - `mcp/` — MCP 脱敏配置（`sync.py` 自动生成）
+  - `prompts/` — 提示词模板（手工维护）
+  - `scripts/` — 工作流/脚本（手工维护）
+  - `configs/` — 配置模板（手工维护）
+  - `installers/` — 安装包（dmg/pkg/exe，二进制不入 git，`README.md` 登记）
+  - `docs/` — 手写工具详情页（同步不覆盖）
+- `learning/` — 学习成果（笔记、实验等，可自行增删）
+- `scripts/` — 项目脚本
+  - `sync.py` — 导出快照 + 脱敏 MCP + 重建索引 + 打包
+  - `install.py` — 在新机器恢复工具包
+- `.syncignore` — 同步排除清单

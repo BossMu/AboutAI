@@ -1,0 +1,165 @@
+---
+name: StockWin
+description: A股专业股票分析、智能选股、持仓管理系统。作为总控 skill 统一完成行情准备、文件管理、任务调度与结果存档，并按场景调用三个子技能模块。触发：用户需要股票分析、选股、持仓分析、投资建议时使用。
+---
+
+# StockWin - A股专业股票分析技能
+
+> **整体分工**：StockWin 是总控 skill，负责统一完成前后处理，并按场景调用各子模块执行具体分析逻辑。
+
+## 使用方式
+
+StockWin 作为聚合入口 skill 使用，负责识别任务类型、准备前置数据、调用子模块、汇总结果，并按约定更新业务文件与存档。
+
+## 基础变量约定
+
+- `$base_url`：由调用者显式传入的基础路径（必传）
+- `$agent_name`：由调用者传入的入口 agent 名称。如果调用者未显式传入 `$agent_name`，默认使用 `gushen`
+- 默认业务目录：`$base_url/workspace/$agent_name/`
+
+## 总流程
+
+StockWin 处理请求时，必须按以下顺序执行：
+
+1. 先判断用户请求属于支持的功能中哪一类任务，并路由到对应子 skill
+   - 持仓分析
+   - 选股策略
+   - 卖出策略
+2. 检查前置目录与所需业务文件是否存在，并按默认目录约定读写
+3. 获取最新行情
+4. 使用 Tavily 联网确认股票名称
+5. 检查 `$base_url/workspace/$agent_name/data/BLACK.md`
+6. 读取或更新持仓、股票池、黑名单、日志等文件
+7. 读取对应子模块的 `SKILL.md` 并按模块规则执行分析
+8. 汇总分析结果并输出给用户
+9. 按约定保存结果与日志
+
+如果用户请求同时包含多个场景，先拆分任务，再按顺序分别读取对应子模块并合并结论。
+
+路由规则如下：
+
+- 持仓深度分析、持仓诊断、个股复盘、仓位优化 -> 读取 `analysis/SKILL.md`
+- 股票池筛选、找买点、选股、低吸/突破战法筛选 -> 读取 `buy/SKILL.md`
+- 卖出建议、止盈止损、减仓/清仓判断 -> 读取 `sell/SKILL.md`
+
+混合任务处理规则：
+
+- “先分析持仓，再判断是否减仓或卖出” -> 先读取 `analysis/SKILL.md`，再读取 `sell/SKILL.md`
+
+- “先筛选买点，再评估持仓是否调仓” -> 先读取 `buy/SKILL.md`，再读取 `analysis/SKILL.md`
+
+- 如无明确顺序，默认先做分析，再做买卖决策
+
+  
+
+## 前置数据与目录检查
+
+- 默认业务工作目录固定为 `$base_url/workspace/$agent_name/`
+- 默认目录结构与文件：
+  - 基础数据目录：`$base_url/workspace/$agent_name/data/`
+    - 持仓记录：`$base_url/workspace/$agent_name/data/POSITION.md`
+    - 股票池记录：`$base_url/workspace/$agent_name/data/STOCK_POOL.md`
+    - 清仓股票记录：`$base_url/workspace/$agent_name/data/QINGCANG.md`
+    - 黑名单股票：`$base_url/workspace/$agent_name/data/BLACK.md`
+  - 分析输出目录：`$base_url/workspace/$agent_name/out/`
+    - 持仓分析结果：`$base_url/workspace/$agent_name/out/YYYYMMDD_hh-持仓分析.md`
+    - 选股分析结果：`$base_url/workspace/$agent_name/out/YYYYMMDD_hh-选股分析.md`
+    - 卖出分析结果：`$base_url/workspace/$agent_name/out/YYYYMMDD_hh-卖出分析.md`
+  - 日志目录：`$base_url/workspace/$agent_name/log/`
+    - 每日操作日志：`$base_url/workspace/$agent_name/log/YYYYMMDD_操作记录.md`
+  - 工具目录（js、py、json 等）：`$base_url/workspace/$agent_name/tools/`
+  - 临时文件目录：`$base_url/workspace/$agent_name/tmp/`
+- `data/` 仅用于保存股票业务数据源文件，不用于保存分析输出。
+- 分析前必须确认目录约定与本次任务一致；若文件不存在，可按约定创建或提示缺失。
+
+## 行情数据规则
+
+- 必须：每只个股都单独重新查询最新价格、涨跌幅、成交量等信息
+- 禁止：使用缓存数据、历史数据；每次分析都必须重新获取
+- 若查询接口失败（超时、无法访问等），必须立即告知用户，不得猜测、编造或使用旧数据
+- 不能用 Tavily 搜索替代行情数据
+
+### 行情获取优先级
+
+前一个不通再试下一个。行情数据绝对不允许使用 Tavily 等网络搜索获取，必须使用专业配置的行情接口，且必须说明本次实际使用了哪个工具。
+
+1. 东方财富接口
+2. 腾讯证券接口：`$base_url/workspace/$agent_name/tools/tencent_data.py`
+3. 新浪财经免费接口：`$base_url/workspace/$agent_name/tools/get_stock_price.py`
+4. QVeris 接口：`$base_url/workspace/$agent_name/tools/qveris_query.py`
+5. Tushare 接口：`$base_url/workspace/$agent_name/tools/tushare_data.py`
+6. AkShare 接口：`$base_url/workspace/$agent_name/tools/akshare_data.py`
+
+行情规则：
+- 如果当日是交易日则获取当日数据；如果当日是非交易日（周末或节假日）：自动获取上个交易日数据，并明确标注。
+- 对于个股：前面所有接口都获取失败时，必须立即告知用户，不能用 Tavily 凑数
+- 对于指数：逐个查询4大指数（000001 上证指数、399001 深证成指、399006 创业板指、000680 科创综指）
+- 每次获取行情数据时，都必须明确告知用户使用了哪个接口
+
+## 名称确认与黑名单检查
+
+- 用户提供股票代码后，必须通过 Tavily 联网确认股票名称，不得猜测
+- 分析任何股票前，必须先检查 `$base_url/workspace/$agent_name/data/BLACK.md`
+- 如果股票在黑名单中，必须高亮提示用户该股票在黑名单中，说明原因，并建议回避
+- 分析股票并展示行情数据时，必须明确标注行情日期，确保信息时效性可追溯
+
+## 文件管理与结果存档
+
+- StockWin 总 skill 负责读取与更新持仓、股票池、黑名单、清仓记录等业务文件
+- StockWin 总 skill 负责展示分析结果，并保存到指定路径
+- 分析输出文件夹：`$base_url/workspace/$agent_name/out/`
+  - 持仓分析结果：`$base_url/workspace/$agent_name/out/YYYYMMDD_hh-持仓分析.md`
+  - 选股分析结果：`$base_url/workspace/$agent_name/out/YYYYMMDD_hh-选股分析.md`
+  - 卖出分析结果：`$base_url/workspace/$agent_name/out/YYYYMMDD_hh-卖出分析.md`
+- 每日日志保存到 `$base_url/workspace/$agent_name/log/YYYYMMDD_操作记录.md`
+- 分析输出只写入 `out/`，不再写入 `data/his`
+- 日志只写入 `log/`
+
+## 单票分析后的追加动作
+
+- 用户只提供一只股票时，在完成 `swa` 全量分析后，必须主动询问用户以下事项：
+  1. 是否加入持仓池
+  2. 是否加入股票池
+  3. 是否加入黑名单
+  4. 是否检查卖出信号
+  5. 是否还有其他需求
+
+## 子技能分工
+
+| 子模块 | 简称 | 功能 | 位置 |
+|--------|------|------|------|
+| **analysis** | swa | 持仓深度分析，对用户持仓做全维度分析，给出止损止盈建议 | `analysis/SKILL.md` |
+| **buy** | swb | 智能选股，从股票池中筛选"突破回踩+上涨反包"战法买点 | `buy/SKILL.md` |
+| **sell** | sws | 持仓卖出策略，根据四种卖出规则判断卖出信号 | `sell/SKILL.md` |
+
+## 调用约定
+
+- StockWin 总 skill 负责行情获取、文件管理、股票名称确认、结果存档与混合任务调度
+- `analysis` / `buy` / `sell` 三个子模块只负责基于已准备好的数据进行分析并输出结论
+- 涉及股票池移除、黑名单更新、持仓更新时，由 StockWin 总 skill 在符合规则且必要时执行对应文件更新
+- 任何需要删除或移除文件内容的动作，都必须遵守用户当前线程中的文件操作规则
+- 调用方必须显式传入 `$base_url`
+- 调用方应优先显式传入 `$agent_name`
+- 未传入 `$agent_name` 时，默认按 `gushen` 解释所有默认业务目录
+
+## 通用职责边界
+
+- 总 skill 负责：
+  - 前置目录与文件检查
+  - 实时行情获取
+  - 股票名称确认
+  - 黑名单检查
+  - 持仓、股票池、清仓记录、日志的读写
+  - 结果汇总与存档
+- 子模块负责：
+  - 按各自战法输出分析过程和结论
+  - 遵循统一的规则要求
+
+## 总体风控原则
+
+投资有风险，入市需谨慎。
+
+- 不承诺任何投资收益，不做保本保证
+- 分析结论仅供参考，不代替用户做出投资决策
+- 分析时必须排查潜在风险，利空因素不得隐瞒
+- 建议用户理性投资，控制仓位，做好风险控制

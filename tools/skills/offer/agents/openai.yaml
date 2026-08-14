@@ -1,0 +1,4 @@
+interface:
+  display_name: "Offer 求职助手"
+  short_description: "Offer 求职助手：找岗位、投递追踪、简历与岗位分析"
+  default_prompt: "Use $offer 根据我提供的简历和投递追踪表路径，帮我找工作并分析岗位。"
