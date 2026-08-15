@@ -1,6 +1,6 @@
 # 工具包总览
 
-本目录是 AboutAI 的工具包本体。已收录工具按**作用分类**（编码 / 图表 / 炒股 / 求职 / 规划 / 自动化）分表维护，每行一个工具，标注**类型**（skill / plugin / mcp / 安装包）、**来源**与**功能**，看一眼就知道有什么、能干什么。
+本目录是 AboutAI 的工具包本体。已收录工具按**作用分类**（编码 / 图表 / 炒股 / 求职 / 规划 / 视频 / 自动化）分表维护，每行一个工具，标注**类型**（skill / plugin / mcp / 安装包）、**来源**与**功能**，看一眼就知道有什么、能干什么。
 
 > 提示：`tools/INDEX.md` 是 `sync.py` 自动生成的机械索引；本文件是人工维护的总览，两者互补。目录结构见 [Dir.md](../Dir.md)。
 
@@ -41,6 +41,13 @@
 | 名称 | 类型 | 来源 | 功能 | 备注 | 原理 |
 | --- | --- | --- | --- | --- | --- |
 | computer-use | mcp | 系统自带（Codex 客户端） | 通过 Computer Use 控制 macOS 桌面应用 | 未启用（enabled=false） |  |
+
+## 视频
+
+| 名称 | 类型 | 来源 | 功能 | 备注 | 原理 |
+| --- | --- | --- | --- | --- | --- |
+| video-editing-skill | skill | GitHub（[6missedcalls/video-editing-skill](https://github.com/6missedcalls/video-editing-skill)） | 轻量剪辑：裁剪、去静音、烧字幕（3 风格）、文字叠加、变速，可链式流水线 | 未安装，信息登记；纯 FFmpeg+Bash+本地 Whisper，零云 API | Bash 脚本封装 FFmpeg 滤镜（silencedetect/drawtext/ass）+ Whisper 转写 SRT 再烧录 |
+| cutcraft | skill | GitHub（[chang416/cutcraft](https://github.com/chang416/cutcraft)） | 完整剪辑工作流：素材盘点→创意确认→精剪→调色/转场/配乐→字幕→质检出片，交付单一成品 | 未安装，信息登记；Python 3.10+ / FFmpeg / uv；转写可选本地 Whisper 或 ElevenLabs | 对话式编排 + helper 脚本（EDL/字幕/渲染/QC），从原始素材渲染，支持字级修订 |
 
 ## 维护约定
 
