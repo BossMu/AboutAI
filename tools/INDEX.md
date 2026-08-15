@@ -1,6 +1,6 @@
 # AboutAI 工具包索引
 
-> 由 scripts/sync.py 自动生成（2026-08-14 23:22），请勿手改。手写内容请放 tools/docs/ 等目录。
+> 由 scripts/sync.py 自动生成（2026-08-15 15:09），请勿手改。手写内容请放 tools/docs/ 等目录。
 
 ## Skills
 
@@ -39,3 +39,7 @@
 
 - README.md — [tools/installers/README.md](tools/installers/README.md)
 - next-ai/ — [tools/installers/next-ai/](tools/installers/next-ai/)
+
+## 规则
+
+- AGENTS.md — [tools/rules/AGENTS.md](tools/rules/AGENTS.md)

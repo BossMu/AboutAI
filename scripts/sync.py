@@ -151,6 +151,7 @@ def build_index():
         ("scripts", "脚本 / 工作流"),
         ("configs", "配置模板"),
         ("installers", "安装包"),
+        ("rules", "规则"),
     ]
     for folder, title in sections:
         lines.append(f"## {title}")

@@ -14,6 +14,7 @@
   - `configs/` — 配置模板（手工维护）
   - `installers/` — 安装包（dmg/pkg/exe，二进制不入 git，`README.md` 登记）
   - `docs/` — 手写工具详情页（同步不覆盖）
+  - `rules/` — 规则备份（如 Codex 的 `AGENTS.md` 副本）
 - `learning/` — 学习成果（笔记、实验等，可自行增删）
 - `scripts/` — 项目脚本
   - `sync.py` — 导出快照 + 脱敏 MCP + 重建索引 + 打包
