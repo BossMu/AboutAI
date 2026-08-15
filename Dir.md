@@ -3,7 +3,7 @@
 - `README.md` — 项目总览与快速开始
 - `Dir.md` — 本文件，目录结构说明
 - `tools/` — 工具包本体
-  - `README.md` — 工具包总览：分类、来源、功能（人工维护）
+  - `README.md` — 工具包总览（单表：类型 + 作用分类 + 来源 + 功能 + 原理，人工维护）
   - `INDEX.md` — 索引表（`sync.py` 自动生成，覆盖 skills/agents/mcp/prompts/scripts/configs）
   - `skills/` — skills 快照（`sync.py` 从 `~/.agents/skills` 导出，勿手改）
   - `agents/` — agents 快照（`sync.py` 从 `~/.agents/agents` 导出，暂为空，预留）
