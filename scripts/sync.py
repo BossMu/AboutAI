@@ -55,7 +55,7 @@ def copytree_filtered(src, dst, base_rel, rules):
     count = 0
     for item in sorted(src.iterdir()):
         rel = base_rel / item.name
-        if item.name == ".DS_Store" or ignored(rel, rules):
+        if item.name in (".DS_Store", ".git") or ignored(rel, rules):
             print(f"[排除] {rel.as_posix()}")
             continue
         if item.is_dir():
