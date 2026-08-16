@@ -15,6 +15,7 @@
 | 名称 | 类型 | 来源 | 功能 | 备注 | 说明 |
 | --- | --- | --- | --- | --- | --- |
 | diagram-design | plugin | GitHub（[cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design)） | 打包 Agent Skill（27 种编辑级图表） | 2.3.5；双端已装；支持 draw.io/Mermaid 导入重绘、品牌化配色；内容包快照 `tools/plugins/diagram-design/` | 要好看、能直接发出去的图 → 用它 |
+| archify | skill | GitHub（[tt-a1i/archify](https://github.com/tt-a1i/archify)） | 把代码库/系统描述变成可交互的系统架构图 | v2.14.0；已装（Codex）；快照 tools/skills/archify/ | 要摸清代码库/评审架构/讲解系统 → 用它 |
 | drawio（Next AI Draw.io） | mcp | GitHub / npm（[DayuanJiang/next-ai-draw-io](https://github.com/DayuanJiang/next-ai-draw-io)） | AI 生成/编辑 draw.io 图表，实时浏览器预览 | 已启用；`npx @next-ai-drawio/mcp-server@latest` | 要 draw.io 源文件、之后自己改 → 用它 |
 | Next AI Draw.io（桌面客户端） | 安装包 | GitHub（[DayuanJiang/next-ai-draw-io](https://github.com/DayuanJiang/next-ai-draw-io/releases)） | AI 增强的 draw.io 桌面绘图（macOS + Windows） | 0.4.16；已收录；位置 `installers/next-ai/`；dmg `c829735a…`、exe `f12a048f…` | 要离线手工画 draw.io 图 → 用它 |
 
