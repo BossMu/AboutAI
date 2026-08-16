@@ -1,6 +1,6 @@
 # 工具包总览
 
-本目录是 AboutAI 的工具包本体。已收录工具按**作用分类**（编码 / 图表 / 炒股 / 求职 / 规划 / 自动化）分表维护，每行一个工具，标注**类型**（skill / plugin / mcp / 安装包）、**来源**、**功能**与**说明**（"要什么"的选型提示），一眼就能区分同类工具。
+本目录是 AboutAI 的工具包本体。已收录工具按**作用分类**（编码 / 图表 / 视频剪辑 / 炒股 / 求职 / 规划 / 自动化）分表维护，每行一个工具，标注**类型**（skill / plugin / mcp / 安装包）、**来源**、**功能**与**说明**（"要什么"的选型提示），一眼就能区分同类工具。
 
 > 提示：`tools/INDEX.md` 是 `sync.py` 自动生成的机械索引；本文件是人工维护的总览，两者互补。目录结构见 [Dir.md](../Dir.md)。
 
@@ -14,10 +14,16 @@
 
 | 名称 | 类型 | 来源 | 功能 | 备注 | 说明 |
 | --- | --- | --- | --- | --- | --- |
-| diagram-design | plugin | GitHub（[cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design)） | 打包 Agent Skill（27 种编辑级图表） | 2.3.5；双端已装；支持 draw.io/Mermaid 导入重绘、品牌化配色；内容包快照 `tools/plugins/diagram-design/` | 要好看、能直接发出去的图 |
+| diagram-design | plugin | GitHub（[cathrynlavery/diagram-design](https://github.com/cathrynlavery/diagram-design)） | 打包 Agent Skill（27 种编辑级图表） | 2.4.0；双端已装；支持 draw.io/Mermaid 导入重绘、品牌化配色；内容包快照 `tools/plugins/diagram-design/` | 要好看、能直接发出去的图 |
 | archify | skill | GitHub（[tt-a1i/archify](https://github.com/tt-a1i/archify)） | 把代码库/系统描述变成可交互的系统架构图 | v2.14.0；已装（Codex）；快照 tools/skills/archify/ | 要摸清代码库/评审架构/讲解系统 |
 | drawio（Next AI Draw.io） | mcp | GitHub / npm（[DayuanJiang/next-ai-draw-io](https://github.com/DayuanJiang/next-ai-draw-io)） | AI 生成/编辑 draw.io 图表，实时浏览器预览 | 已启用；`npx @next-ai-drawio/mcp-server@latest` | 要 draw.io 源文件、之后自己改 |
 | Next AI Draw.io（桌面客户端） | 安装包 | GitHub（[DayuanJiang/next-ai-draw-io](https://github.com/DayuanJiang/next-ai-draw-io/releases)） | AI 增强的 draw.io 桌面绘图（macOS + Windows） | 0.4.16；已收录；位置 `installers/next-ai/`；dmg `c829735a…`、exe `f12a048f…` | 要离线手工画 draw.io 图 |
+
+## 视频剪辑
+
+| 名称 | 类型 | 来源 | 功能 | 备注 | 说明 |
+| --- | --- | --- | --- | --- | --- |
+| video-editing-skill | skill | GitHub（[6missedcalls/video-editing-skill](https://github.com/6missedcalls/video-editing-skill)） | 自然语言剪辑视频：裁剪、去静音、字幕、变速（ffmpeg + Whisper） | 已装；快照 `tools/skills/video-editing-skill/` | 要剪视频/去静音/加字幕 |
 
 ## 炒股
 
