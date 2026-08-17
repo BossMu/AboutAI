@@ -1,25 +1,23 @@
 ---
-name: StockWin
+name: stockwin
 description: A股专业股票分析、智能选股、持仓管理系统。作为总控 skill 统一完成行情准备、文件管理、任务调度与结果存档，并按场景调用三个子技能模块。触发：用户需要股票分析、选股、持仓分析、投资建议时使用。
 ---
 
-# StockWin - A股专业股票分析技能
+# stockwin - A股专业股票分析技能
 
-> **整体分工**：StockWin 是总控 skill，负责统一完成前后处理，并按场景调用各子模块执行具体分析逻辑。
+> **整体分工**：stockwin 是总控 skill，负责统一完成前后处理，并按场景调用各子模块执行具体分析逻辑。
 
 ## 使用方式
 
-StockWin 作为聚合入口 skill 使用，负责识别任务类型、准备前置数据、调用子模块、汇总结果，并按约定更新业务文件与存档。
+stockwin 作为聚合入口 skill 使用，负责识别任务类型、准备前置数据、调用子模块、汇总结果，并按约定更新业务文件与存档。
 
 ## 基础变量约定
 
-- `$base_url`：由调用者显式传入的基础路径（必传）
-- `$agent_name`：由调用者传入的入口 agent 名称。如果调用者未显式传入 `$agent_name`，默认使用 `gushen`
-- 默认业务目录：`$base_url/workspace/$agent_name/`
+- `$data_url`：由调用者显式传入的数据目录（必传），持仓、股票池、黑名单、清仓记录等业务文件均直接存放在 `$data_url` 下
 
 ## 总流程
 
-StockWin 处理请求时，必须按以下顺序执行：
+stockwin 处理请求时，必须按以下顺序执行：
 
 1. 先判断用户请求属于支持的功能中哪一类任务，并路由到对应子 skill
    - 持仓分析
@@ -28,7 +26,7 @@ StockWin 处理请求时，必须按以下顺序执行：
 2. 检查前置目录与所需业务文件是否存在，并按默认目录约定读写
 3. 获取最新行情
 4. 使用 Tavily 联网确认股票名称
-5. 检查 `$base_url/workspace/$agent_name/data/BLACK.md`
+5. 检查 `$data_url/BLACK.md`
 6. 读取或更新持仓、股票池、黑名单、日志等文件
 7. 读取对应子模块的 `SKILL.md` 并按模块规则执行分析
 8. 汇总分析结果并输出给用户
@@ -54,22 +52,21 @@ StockWin 处理请求时，必须按以下顺序执行：
 
 ## 前置数据与目录检查
 
-- 默认业务工作目录固定为 `$base_url/workspace/$agent_name/`
+- 业务工作目录固定为 `$data_url/`，业务数据文件直接存放在该目录下
 - 默认目录结构与文件：
-  - 基础数据目录：`$base_url/workspace/$agent_name/data/`
-    - 持仓记录：`$base_url/workspace/$agent_name/data/POSITION.md`
-    - 股票池记录：`$base_url/workspace/$agent_name/data/STOCK_POOL.md`
-    - 清仓股票记录：`$base_url/workspace/$agent_name/data/QINGCANG.md`
-    - 黑名单股票：`$base_url/workspace/$agent_name/data/BLACK.md`
-  - 分析输出目录：`$base_url/workspace/$agent_name/out/`
-    - 持仓分析结果：`$base_url/workspace/$agent_name/out/YYYYMMDD_hh-持仓分析.md`
-    - 选股分析结果：`$base_url/workspace/$agent_name/out/YYYYMMDD_hh-选股分析.md`
-    - 卖出分析结果：`$base_url/workspace/$agent_name/out/YYYYMMDD_hh-卖出分析.md`
-  - 日志目录：`$base_url/workspace/$agent_name/log/`
-    - 每日操作日志：`$base_url/workspace/$agent_name/log/YYYYMMDD_操作记录.md`
-  - 工具目录（js、py、json 等）：`$base_url/workspace/$agent_name/tools/`
-  - 临时文件目录：`$base_url/workspace/$agent_name/tmp/`
-- `data/` 仅用于保存股票业务数据源文件，不用于保存分析输出。
+  - 持仓记录：`$data_url/POSITION.md`
+  - 股票池记录：`$data_url/STOCK_POOL.md`
+  - 清仓股票记录：`$data_url/QINGCANG.md`
+  - 黑名单股票：`$data_url/BLACK.md`
+  - 分析输出目录：`$data_url/out/`
+    - 持仓分析结果：`$data_url/out/YYYYMMDD_hh-持仓分析.md`
+    - 选股分析结果：`$data_url/out/YYYYMMDD_hh-选股分析.md`
+    - 卖出分析结果：`$data_url/out/YYYYMMDD_hh-卖出分析.md`
+  - 日志目录：`$data_url/log/`
+    - 每日操作日志：`$data_url/log/YYYYMMDD_操作记录.md`
+  - 工具目录（js、py、json 等）：`$data_url/tools/`
+  - 临时文件目录：`$data_url/tmp/`
+- `$data_url` 下仅保存股票业务数据源文件（POSITION.md 等），不用于保存分析输出。
 - 分析前必须确认目录约定与本次任务一致；若文件不存在，可按约定创建或提示缺失。
 
 ## 行情数据规则
@@ -84,11 +81,11 @@ StockWin 处理请求时，必须按以下顺序执行：
 前一个不通再试下一个。行情数据绝对不允许使用 Tavily 等网络搜索获取，必须使用专业配置的行情接口，且必须说明本次实际使用了哪个工具。
 
 1. 东方财富接口
-2. 腾讯证券接口：`$base_url/workspace/$agent_name/tools/tencent_data.py`
-3. 新浪财经免费接口：`$base_url/workspace/$agent_name/tools/get_stock_price.py`
-4. QVeris 接口：`$base_url/workspace/$agent_name/tools/qveris_query.py`
-5. Tushare 接口：`$base_url/workspace/$agent_name/tools/tushare_data.py`
-6. AkShare 接口：`$base_url/workspace/$agent_name/tools/akshare_data.py`
+2. 腾讯证券接口：`$data_url/tools/tencent_data.py`
+3. 新浪财经免费接口：`$data_url/tools/get_stock_price.py`
+4. QVeris 接口：`$data_url/tools/qveris_query.py`
+5. Tushare 接口：`$data_url/tools/tushare_data.py`
+6. AkShare 接口：`$data_url/tools/akshare_data.py`
 
 行情规则：
 - 如果当日是交易日则获取当日数据；如果当日是非交易日（周末或节假日）：自动获取上个交易日数据，并明确标注。
@@ -99,19 +96,19 @@ StockWin 处理请求时，必须按以下顺序执行：
 ## 名称确认与黑名单检查
 
 - 用户提供股票代码后，必须通过 Tavily 联网确认股票名称，不得猜测
-- 分析任何股票前，必须先检查 `$base_url/workspace/$agent_name/data/BLACK.md`
+- 分析任何股票前，必须先检查 `$data_url/BLACK.md`
 - 如果股票在黑名单中，必须高亮提示用户该股票在黑名单中，说明原因，并建议回避
 - 分析股票并展示行情数据时，必须明确标注行情日期，确保信息时效性可追溯
 
 ## 文件管理与结果存档
 
-- StockWin 总 skill 负责读取与更新持仓、股票池、黑名单、清仓记录等业务文件
-- StockWin 总 skill 负责展示分析结果，并保存到指定路径
-- 分析输出文件夹：`$base_url/workspace/$agent_name/out/`
-  - 持仓分析结果：`$base_url/workspace/$agent_name/out/YYYYMMDD_hh-持仓分析.md`
-  - 选股分析结果：`$base_url/workspace/$agent_name/out/YYYYMMDD_hh-选股分析.md`
-  - 卖出分析结果：`$base_url/workspace/$agent_name/out/YYYYMMDD_hh-卖出分析.md`
-- 每日日志保存到 `$base_url/workspace/$agent_name/log/YYYYMMDD_操作记录.md`
+- stockwin 总 skill 负责读取与更新持仓、股票池、黑名单、清仓记录等业务文件
+- stockwin 总 skill 负责展示分析结果，并保存到指定路径
+- 分析输出文件夹：`$data_url/out/`
+  - 持仓分析结果：`$data_url/out/YYYYMMDD_hh-持仓分析.md`
+  - 选股分析结果：`$data_url/out/YYYYMMDD_hh-选股分析.md`
+  - 卖出分析结果：`$data_url/out/YYYYMMDD_hh-卖出分析.md`
+- 每日日志保存到 `$data_url/log/YYYYMMDD_操作记录.md`
 - 分析输出只写入 `out/`，不再写入 `data/his`
 - 日志只写入 `log/`
 
@@ -134,13 +131,11 @@ StockWin 处理请求时，必须按以下顺序执行：
 
 ## 调用约定
 
-- StockWin 总 skill 负责行情获取、文件管理、股票名称确认、结果存档与混合任务调度
+- stockwin 总 skill 负责行情获取、文件管理、股票名称确认、结果存档与混合任务调度
 - `analysis` / `buy` / `sell` 三个子模块只负责基于已准备好的数据进行分析并输出结论
-- 涉及股票池移除、黑名单更新、持仓更新时，由 StockWin 总 skill 在符合规则且必要时执行对应文件更新
+- 涉及股票池移除、黑名单更新、持仓更新时，由 stockwin 总 skill 在符合规则且必要时执行对应文件更新
 - 任何需要删除或移除文件内容的动作，都必须遵守用户当前线程中的文件操作规则
-- 调用方必须显式传入 `$base_url`
-- 调用方应优先显式传入 `$agent_name`
-- 未传入 `$agent_name` 时，默认按 `gushen` 解释所有默认业务目录
+- 调用方必须显式传入 `$data_url`
 
 ## 通用职责边界
 

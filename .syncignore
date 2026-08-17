@@ -7,3 +7,5 @@
 # skills/StockWin/data/*.csv
 # **/*.sqlite
 # **/private/
+# skills/vision-assist/config.json
+**/__pycache__

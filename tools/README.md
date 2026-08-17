@@ -49,6 +49,12 @@
 | --- | --- | --- | --- | --- | --- |
 | computer-use | mcp | 系统自带（Codex 客户端） | 通过 Computer Use 控制 macOS 桌面应用 | 未启用（enabled=false） | 要控制 macOS 桌面应用（当前未启用） |
 
+## 识图
+
+| 名称 | 类型 | 来源 | 功能 | 备注 | 说明 |
+| --- | --- | --- | --- | --- | --- |
+| vision-assist | skill | GitHub（[pudy/harness_skills](https://github.com/pudy/harness_skills)） | 图片/PDF 识别与 OCR：免费智谱 GLM 视觉 API 优先，Windows 内置 OCR 兜底，为纯文本模型（DeepSeek）补视觉 | 已装；Key 只存本地 `config.json`（不入库）；快照 `tools/skills/vision-assist/` | 要识别图片文字/读截图/解析图表或扫描 PDF |
+
 ## 维护约定
 
 - 本文件人工维护：每个作用分类一个表格，新增/删除工具在对应分类表加/删一行，"说明"列按"要什么"的选型风格写。
